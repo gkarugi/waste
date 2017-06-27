@@ -63,11 +63,17 @@
                         </a>
                         <ul class="dropdown-menu" role="menu">
                             @if (\Auth::user()->isAn('admin'))
-                            <li>
-                                <a href="{{ url('/admin') }}">
-                                    Portal Access
-                                </a>
-                            </li>
+                                <li>
+                                    <a href="{{ url('/admin') }}">
+                                        Portal Access
+                                    </a>
+                                </li>
+                            @elseif(\Auth::user()->isAn('service-provider'))
+                                <li>
+                                    <a href="{{ url('/service-provider') }}">
+                                        Portal Access
+                                    </a>
+                                </li>
                             @endif
                             
                             <li>

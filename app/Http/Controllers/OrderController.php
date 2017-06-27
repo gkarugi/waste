@@ -26,7 +26,8 @@ class OrderController extends Controller
     public function makeOrder(Request $request)
     {
         $data = $request->session()->pull('data');
-        $existing_order = Order::where('service_id',$data['service'])->where('user_id',\Auth::user()->id);
+
+        $existing_order = Order::where('service_id',$data['service'])->where('user_id',\Auth::user()->id)->get();
 
         if(! count($existing_order) > 0) {
             $order = new Order();

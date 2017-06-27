@@ -54,7 +54,7 @@ class ServiceProviderController extends Controller
         $service_provider->user()->associate($user);
         $service_provider->save();
 
-        return redirect()->route('service-provider.index')->withMessage('Success');
+        return redirect()->route('service-providers.index')->withMessage('Success');
     }
 
     /**
