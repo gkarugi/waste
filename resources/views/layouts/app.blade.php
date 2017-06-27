@@ -36,7 +36,24 @@
                 <div class="collapse navbar-collapse" id="app-navbar-collapse">
                     <!-- Left Side Of Navbar -->
                     <ul class="nav navbar-nav">
-                        &nbsp;
+                        <?php $menu=\App\Helpers\Menu::dashboard(true); ?>
+
+                        @foreach($menu as $menu_item)
+                        <li  @if(isset($menu_item['children'])) class="has-submenu" @endif>
+                            <a href="{{ $menu_item['route'] }}" @if(isset($menu_item['children'])) class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" @endif> {{ $menu_item['text'] }} @if(isset($menu_item['children'])) <span class="caret"></span> @endif</a>
+                            @if(isset($menu_item['children']))
+                            <ul class="submenu" role="menu">
+                                @foreach($menu_item['children'] as $child_menu)
+                                <li>
+                                    <a href="{{ $child_menu['route'] }}">
+                                        {{ $child_menu['text'] }}
+                                    </a>
+                                </li>
+                                @endforeach
+                            </ul>
+                            @endif
+                        </li>
+                        @endforeach
                     </ul>
 
                     <!-- Right Side Of Navbar -->
@@ -70,8 +87,19 @@
                 </div>
             </div>
         </nav>
+         @if(Session::has('message'))
+            <p id="kialart" class="alert {{ Session::get('alert-class', 'alert-info') }}">{{ Session::get('message') }}</p>
+        @elseif(Session::has('error'))
+            <p id="kialart" class="alert {{ Session::get('alert-class', 'alert-danger') }}">{{ Session::get('error') }}</p>
+        @endif
 
-        @yield('content')
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    @yield('content')
+                </div>
+            </div>
+        </div>
     </div>
 
     <!-- Scripts -->

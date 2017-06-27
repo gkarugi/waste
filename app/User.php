@@ -27,4 +27,14 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function serviceProvider()
+    {
+        return $this->hasOne(\App\ServiceProvider::class,'user_id');
+    }
+
+    public function orders()
+    {
+        return $this->hasMany(\App\Order::class);
+    }
 }

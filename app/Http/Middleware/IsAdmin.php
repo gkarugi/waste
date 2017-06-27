@@ -19,7 +19,6 @@ class IsAdmin
         if (Auth::guard($guard)->check() && Auth::user()->isAn('admin')) {
             return $next($request);
         }
-        return redirect('/');
-        
+        return redirect('/')->withError("You are not allowed to access that url");        
     }
 }

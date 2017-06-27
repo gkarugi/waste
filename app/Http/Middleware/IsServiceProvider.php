@@ -19,6 +19,6 @@ class IsServiceProvider
          if (Auth::guard($guard)->check() && Auth::user()->isA('service-provider')) {
             return $next($request);
         }
-        return redirect('/');
+        return redirect('/')->withError("You are not allowed to access that url");
     }
 }
